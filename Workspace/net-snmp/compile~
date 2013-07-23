@@ -1,0 +1,6 @@
+#!/bin/bash
+
+gcc c custom_snmp_demoapp.c
+gcc -o custom_snmp_demoapp custom_snmp_demoapp.o `net-snmp-config --libs`
+./custom_snmp_demoapp
+

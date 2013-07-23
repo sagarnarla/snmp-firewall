@@ -1,0 +1,102 @@
+###########################################################################
+#
+# snmpd.conf
+#
+#   - created by the snmpconf configuration program
+#
+###########################################################################
+# SECTION: Trap Destinations
+#
+#   Here we define who the agent will send traps to.
+
+# trapsink: A SNMPv1 trap receiver
+#   arguments: host [community] [portnum]
+
+trapsink  test-ubuntu  
+
+
+
+
+
+
+###########################################################################
+# SECTION: System Information Setup
+#
+#   This section defines some of the information reported in
+#   the "system" mib group in the mibII tree.
+
+# syslocation: The [typically physical] location of the system.
+#   Note that setting this value here means that when trying to
+#   perform an snmp SET operation to the sysLocation.0 variable will make
+#   the agent return the "notWritable" error code.  IE, including
+#   this token in the snmpd.conf file will disable write access to
+#   the variable.
+#   arguments:  location_string
+
+syslocation  "test network"
+
+# syscontact: The contact information for the administrator
+#   Note that setting this value here means that when trying to
+#   perform an snmp SET operation to the sysContact.0 variable will make
+#   the agent return the "notWritable" error code.  IE, including
+#   this token in the snmpd.conf file will disable write access to
+#   the variable.
+#   arguments:  contact_string
+
+syscontact  siemens
+
+
+
+###########################################################################
+# SECTION: Monitor Various Aspects of the Running Host
+#
+#   The following check up on various aspects of a host.
+
+# proc: Check for processes that should be running.
+#     proc NAME [MAX=0] [MIN=0]
+#   
+#     NAME:  the name of the process to check for.  It must match
+#            exactly (ie, http will not find httpd processes).
+#     MAX:   the maximum number allowed to be running.  Defaults to 0.
+#     MIN:   the minimum number to be running.  Defaults to 0.
+#   
+#   The results are reported in the prTable section of the UCD-SNMP-MIB tree
+#   Special Case:  When the min and max numbers are both 0, it assumes
+#   you want a max of infinity and a min of 1.
+
+proc  snmpd  1
+
+
+
+###########################################################################
+# SECTION: Agent Operating Mode
+#
+#   This section defines how the agent will operate when it
+#   is running.
+
+# agentaddress: The IP address and port number that the agent will listen on.
+#   By default the agent listens to any and all traffic from any
+#   interface on the default SNMP port (161).  This allows you to
+#   specify which address, interface, transport type and port(s) that you
+#   want the agent to listen on.  Multiple definitions of this token
+#   are concatenated together (using ':'s).
+#   arguments: [transport:]port[@interface/address],...
+
+agentaddress  162
+agentaddress  161:127.0.0.5
+
+
+
+###########################################################################
+# SECTION: Access Control Setup
+#
+#   This section defines who is allowed to talk to your running
+#   snmp agent.
+
+# rwcommunity: a SNMPv1/SNMPv2c read-write access community name
+#   arguments:  community [default|hostname|network/bits] [oid]
+
+rwcommunity  siemens  
+
+
+
